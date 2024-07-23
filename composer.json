@@ -1,0 +1,65 @@
+{
+    "name": "andrey-tech/nginx-unit-log-analyzer-php",
+    "description": "Tool to analyze NGINX Unit log file in console",
+    "keywords": [
+        "nginx unit",
+        "log",
+        "console",
+        "graph",
+        "plot",
+        "gnuplot"
+    ],
+    "homepage": "https://github.com/andrey-tech/nginx-unit-log-analyzer-php",
+    "minimum-stability": "stable",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "andrey-tech",
+            "homepage": "https://github.com/andrey-tech/",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^8.1",
+        "symfony/console": "^5.4 || ^6.3 || ^7.1",
+        "symfony/yaml": "^5.4 || ^6.3 || ^7.1"
+    },
+    "require-dev": {
+        "andrey-tech/pdepend-summary-formatter-php": "^1.1",
+        "dg/bypass-finals": "^1.4",
+        "overtrue/phplint": "^9.0",
+        "pdepend/pdepend": "^2.16",
+        "phpmd/phpmd": "^2.14",
+        "phpunit/phpunit": "^10.5",
+        "slevomat/coding-standard": "^8.15",
+        "squizlabs/php_codesniffer": "^3.10",
+        "vimeo/psalm": "^5.24"
+    },
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "AndreyTech\\": "src/AndreyTech"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Test\\": "tests/"
+        }
+    },
+    "bin": [
+        "bin/nginx-unit-log-analyzer"
+    ],
+    "scripts": {
+        "lint": "phplint --configuration=phplint.yml.dist",
+        "cs": "phpcs -s -p --report=full --standard=phpcs.xml.dist",
+        "psalm": "psalm --long-progress --output-format=compact --config=psalm.xml.dist",
+        "phpmd": "phpmd src ansi phpmd.xml.dist --suffixes php",
+        "pdepend": "pdepend --summary-xml=.summary.xml --suffix=php src && pdepend-summary-formatter .summary.xml --config-file=pdepend-summary-formatter.yml.dist",
+        "test": "phpunit --configuration=phpunit.xml.dist --colors=always"
+   }
+}

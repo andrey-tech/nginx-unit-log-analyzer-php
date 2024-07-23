@@ -1,0 +1,120 @@
+colorizer:
+  metrics:
+
+    # Metrics of class
+    class:
+
+      # https://learn.microsoft.com/en-us/visualstudio/code-quality/code-metrics-class-coupling?view=vs-2022
+      # https://phpmd.org/rules/design.html#couplingbetweenobjects
+      # https://pdepend.org/documentation/software-metrics/coupling-between-objects.html
+      cbo:
+        green: [ 0, 13 ],
+        red+bold: [ 14, null ]
+
+      # https://phpmd.org/rules/codesize.html#excessiveclasslength
+      loc:
+        green: [ 0, 1000 ]
+        red+bold: [ 1001, null ]
+
+      # https://phpmd.org/rules/codesize.html#excessivepubliccount
+      # https://pdepend.org/documentation/software-metrics/class-interface-size.html
+      # https://pdepend.org/documentation/software-metrics/class-size.html
+      cis:
+        green: [ 0, 45 ]
+        red+bold: [ 46, null ]
+
+      # https://phpmd.org/rules/codesize.html#toomanymethods
+      nom:
+        green: [ 0, 25 ]
+        red+bold: [ 26, null ]
+
+      # https://phpmd.org/rules/codesize.html#toomanypublicmethods
+      npm:
+        green: [ 0, 20 ]
+        red+bold: [ 21, null ]
+
+      # https://phpmd.org/rules/codesize.html#toomanyfields
+      vars:
+        green: [ 0, 15 ],
+        red+bold: [ 16, null ]
+
+      # https://phpmd.org/rules/codesize.html#excessiveclasscomplexity
+      # https://pdepend.org/documentation/software-metrics/weighted-method-count.html
+      wmc:
+        green: [ 0, 50 ]
+        red+bold: [ 51, null ]
+
+      # https://learn.microsoft.com/ru-ru/visualstudio/code-quality/code-metrics-depth-of-inheritance?view=vs-2022
+      # https://phpmd.org/rules/design.html#depthofinheritance
+      dit:
+        green: [ 0, 6 ]
+        red+bold: [ 7, null ]
+
+      # https://phpmd.org/rules/design.html#numberofchildren
+      nocc:
+        green: [ 0, 15 ]
+        red+bold: [ 16, null ]
+
+    # Metrics of method
+    method:
+
+      # https://learn.microsoft.com/ru-ru/visualstudio/code-quality/code-metrics-cyclomatic-complexity?view=vs-2022
+      # https://phpmd.org/rules/codesize.html#cyclomaticcomplexity
+      ccn:
+        green: [ 1, 7 ]
+        yellow+bold: [ 8, 10 ]
+        red+bold: [ 11, null ]
+
+      # https://stackoverflow.com/questions/27954015/cyclomatic-complexity-and-variants
+      ccn2:
+        green: [ 1, 7 ]
+        yellow+bold: [ 8, 10 ]
+        red+bold: [ 11, null ]
+
+      # https://phpmd.org/rules/codesize.html#npathcomplexity
+      # https://modess.io/npath-complexity-cyclomatic-complexity-explained/
+      npath:
+        green: [ 1, 200 ]
+        red+bold: [ 201, null ]
+
+      # https://learn.microsoft.com/en-us/visualstudio/code-quality/code-metrics-maintainability-index-range-and-meaning?view=vs-2022
+      # https://habr.com/en/articles/111524/
+      # https://forum.itvdn.com/t/o-chyom-govorit-metrika-maintainability-index/2423
+      # https://verifysoft.com/en_maintainability.html
+      # https://www.ijert.org/research/maintainability-index-over-multiple-releases-a-case-study-php-open-source-software-IJERTV1IS6424.pdf
+      mi:
+        green: [ 60, 100 ]
+        yellow+bold: [ 50, 60 ]
+        red+bold: [ 0, 50 ]
+
+      # https://phpmd.org/rules/codesize.html#excessivemethodlength
+      loc:
+        green: [ 0, 100 ]
+        red+bold: [ 101, null ]
+
+      # https://en.wikipedia.org/wiki/Halstead_complexity_measures
+      hb:
+        green: [ 0, 0.09 ]
+        yellow+bold: [ 0.10, null ]
+
+      # https://en.wikipedia.org/wiki/Halstead_complexity_measures
+      # https://github.com/escomplex/complexity-report/blob/master/.complexrc.example
+      hd:
+        green: [ 0, 20 ]
+        yellow+bold: [ 20, null ]
+
+      # https://en.wikipedia.org/wiki/Halstead_complexity_measures
+      hv:
+        green: [ 0, 400 ]
+        yellow+bold: [ 400, null ]
+
+      # https://en.wikipedia.org/wiki/Halstead_complexity_measures
+      he:
+        green: [ 0, 5000 ]
+        yellow+bold: [ 5000, null ]
+
+      # https://www.artima.com/weblogs/viewpost.jsp?thread=210575
+      # https://stackoverflow.com/questions/4731774/how-to-read-improve-c-r-a-p-index-calculated-by-php
+      crap0:
+        green: [ 0, 29 ]
+        yellow+bold: [ 30, null ]

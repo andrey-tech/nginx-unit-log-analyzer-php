@@ -1,0 +1,48 @@
+[
+    {
+        "id": 657,
+        "name": "app1",
+        "start": 1718285466,
+        "startLine": 1,
+        "exit": 1718285534,
+        "exitLine": 3,
+        "duration": 68
+    },
+    {
+        "id": 657,
+        "name": "app2",
+        "start": 1718285469,
+        "startLine": 2,
+        "exit": 1718285576,
+        "exitLine": 4,
+        "duration": 107
+    },
+    {
+        "id": 958,
+        "name": "app3",
+        "start": 1718285466,
+        "startLine": 110,
+        "exit": 1718371934,
+        "exitLine": 333,
+        "duration": 86468
+    },
+    {
+        "id": 657,
+        "name": "app2",
+        "start": 1718285469,
+        "startLine": 12,
+        "exit": 1718285578,
+        "exitLine": 24,
+        "duration": 109
+    },
+    {
+        "id": 968,
+        "name": "app3",
+        "start": 1718286469,
+        "startLine": 993,
+        "exit": null,
+        "exitLine": null,
+        "duration": null
+    }
+]
+

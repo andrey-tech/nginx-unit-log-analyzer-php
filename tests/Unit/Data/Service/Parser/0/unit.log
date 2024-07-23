@@ -1,0 +1,20 @@
+2024/06/13 10:50:10 [info] 1#1 unit 1.32.0 started
+
+2024/06/13 10:50:10 [info] 118#118 discovery started
+2024/06/13 10:50:10 [notice] 118#118 module: php 8.1.27 "/usr/lib/unit/modules/php.unit.so"
+2024/06/13 10:50:10 [info] 1#1 controller started
+
+
+2024/06/13 10:50:10 [notice] 1#1 process 118 exited with code 0
+2024/06/13 10:50:10 [info] 120#120 router started
+
+2024/06/13 10:50:10 [info] 120#120 OpenSSL 1.1.1w  11 Sep 2023, 1010117f
+2024/06/13 10:50:10 [info] 121#121 "app1" prototype started
+
+2024/06/13 10:50:10 [info] 128#128 "app2" prototype started
+
+
+2024/06/13 10:50:10 [info] 151#151 "app3" prototype started
+2024/06/13 10:50:15 [info] 156#156 "app4" prototype started
+
+

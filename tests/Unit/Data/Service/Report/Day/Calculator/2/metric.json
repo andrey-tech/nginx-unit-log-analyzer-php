@@ -1,0 +1,10 @@
+{
+    "totalProcesses": 5,
+    "notExitedProcesses": 1,
+    "applicationList": [ "app1", "app2",  "app3" ],
+    "minDuration": 68,
+    "maxDuration": 86468,
+    "averageDuration": 21688,
+    "medianDuration": 108,
+    "stdDuration": 37401
+}
