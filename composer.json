@@ -3,6 +3,7 @@
     "description": "Tool to analyze NGINX Unit log file in console",
     "keywords": [
         "nginx unit",
+        "nginx-unit",
         "log",
         "console",
         "graph",
