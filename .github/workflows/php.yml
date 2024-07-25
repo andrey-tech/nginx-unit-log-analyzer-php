@@ -1,4 +1,4 @@
-name: PHP Composer
+name: PHP workflow
 
 on:
   push:
@@ -33,6 +33,14 @@ jobs:
     - name: Install dependencies
       run: composer install --prefer-dist --no-progress
 
-    - name: Run unit test suite
-      run: composer test
+    - name: Run PHP Lint
+      run: composer lint
 
+    - name: Run PHP CodeSniffer
+      run: composer cs
+      
+    - name: Run Psalm
+      run: composer psalm
+ 
+    - name: Run PHP Unit test suite
+      run: composer test
