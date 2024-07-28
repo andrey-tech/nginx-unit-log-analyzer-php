@@ -72,7 +72,7 @@ apt install gnuplot
 | `--filter-start-time-to`    | Фильтр записей лога по времени, до         | Строка даты и времени                                 | —                             | `--filter-start-time-to 2024-06-17 23:59:59 UTC`   |
 | `--filter-application-name` | Фильтр записей лога по приложению          | Имя приложения                                        | —                             | `--filter-application-name application-1`          |
 | `--graph-file-name`         | Имя файла графиков для отчёта типа `graph` | Имя файла                                             | `nginx-unit-log-analyzer.png` | `--graph-file-name unit.png`                       |
-| `--graph-types`             | Типы графиков для отчёта `graph`           | `quantity`, `median`, `average`, `maximal`, `minimal` | `quantity` и `median`         | `--graph-types quantity --graph-types average`     |
+| `--graph-types`             | Типы графиков для отчёта `graph`           | `quantity`, `median`, `average`, `maximal`, `minimal` | `quantity` и `average`        | `--graph-types quantity --graph-types median`      |
 | `--no-color`                | Отключение цветов в консоли                | —                                                     | —                             | `--no-color`                                       |
 
 <a id="%D0%A2%D0%B8%D0%BF%D1%8B-%D1%84%D0%BE%D1%80%D0%BC%D0%B8%D1%80%D1%83%D0%B5%D0%BC%D1%8B%D1%85-%D0%BE%D1%82%D1%87%D1%91%D1%82%D0%BE%D0%B2"></a>
@@ -92,8 +92,8 @@ apt install gnuplot
 Отчёт типа `graph` может включать следующие виды графиков (`--graph-types`):
 
 * `quantity` (по умолчанию) — график количества процессов NGINX Unit для запущенных приложений с усреднением за один час; 
-* `median` (по умолчанию) — график [медианной](https://en.wikipedia.org/wiki/Median) продолжительности исполнения процессов NGINX Unit для запущенных приложений с усреднением за один час;
-* `average` — график [среднеарифметической](https://en.wikipedia.org/wiki/Arithmetic_mean) продолжительности исполнения процессов NGINX Unit для запущенных приложений с усреднением за один час; 
+* `average` (по умолчанию) — график [среднеарифметической](https://en.wikipedia.org/wiki/Arithmetic_mean) продолжительности исполнения процессов NGINX Unit для запущенных приложений с усреднением за один час;
+* `median`  — график [медианной](https://en.wikipedia.org/wiki/Median) продолжительности исполнения процессов NGINX Unit для запущенных приложений с усреднением за один час;
 * `maximal` — график максимальной продолжительности исполнения процессов NGINX Unit для запущенных приложений с усреднением за один час; 
 * `minimal` — график минимальной продолжительности исполнения процессов NGINX Unit для запущенных приложений с усреднением за один час.
 
@@ -110,7 +110,7 @@ apt install gnuplot
 * `APP` — список имён приложений, которые были запущены за анализируемую дату;
 * `Processes` — информация о запущенных процессах NGINX Unit: 
   - `Start` — анализируемый интервал времени, часы (от-до);
-  - `Amount` — количество процессов, которые были запущены в течение интервала времени;
+  - `Amount` — количество процессов, которые были запущены в течение интервала времени (`+n` — число незавершённых процессов);
 * `Duration` — информация о продолжительности исполнения процессов в течение временного интервала:
   - `Median` — [медианное](https://en.wikipedia.org/wiki/Median) значение;
   - `Average` — [среднеарифметическое](https://en.wikipedia.org/wiki/Arithmetic_mean) значение;

@@ -12,6 +12,7 @@ declare(strict_types=1);
 namespace AndreyTech\NginxUnit\Log\Analyzer\Service\Report;
 
 use AndreyTech\NginxUnit\Log\Analyzer\Service\Builder;
+use AndreyTech\NginxUnit\Log\Analyzer\Service\Interval;
 use AndreyTech\NginxUnit\Log\Analyzer\Service\Parser\Processes;
 use AndreyTech\NginxUnit\Log\Analyzer\Service\Report;
 use AndreyTech\NginxUnit\Log\Analyzer\Service\Report\Day\Calculator;
@@ -28,6 +29,16 @@ final class Day extends Report
     {
         $reportTimezone = $this->argv->handleOptionReportTimezone();
 
+        $this->createDays($processes, $reportTimezone);
+
+        $this->createTotal($processes, $reportTimezone);
+    }
+
+    /**
+     * @throws Exception
+     */
+    private function createDays(Processes $processes, DateTimeZone $reportTimezone): void
+    {
         $builder = new Builder($reportTimezone);
         $totalInterval = $processes->getTimeInterval();
         $dayIntervalIterator = $builder->buildDayIterator($totalInterval);
@@ -38,28 +49,43 @@ final class Day extends Report
             $renderer = new Renderer($this->console);
             $renderer->renderTitleDate($dayInterval, $reportTimezone);
 
-            $hourIntervalIterator = $builder->buildHourIterator($dayInterval);
             $processIterator = $processes->timeIntervalFilter($processes->getProcessIterator(), $dayInterval);
-
             $dayMetrics = $calculator->calculate($processIterator);
+
             $applicationList = $dayMetrics->getApplicationList();
             $renderer->renderTitleApplicationList($applicationList);
             $renderer->addTableHeader();
 
-            foreach ($hourIntervalIterator as $hourInterval) {
-                $processIterator = $processes->timeIntervalFilter($processes->getProcessIterator(), $hourInterval);
-                $hourMetrics = $calculator->calculate($processIterator);
-                $renderer->addTableRow($hourMetrics, $hourInterval, $reportTimezone);
-            }
-
+            $this->createHours($processes, $builder, $calculator, $renderer, $dayInterval, $reportTimezone);
             $renderer->addTableFooter($dayMetrics);
 
             $renderer->renderTable();
         }
-
-        $this->createTotal($processes, $reportTimezone);
     }
 
+    /**
+     * @throws Exception
+     */
+    private function createHours(
+        Processes $processes,
+        Builder $builder,
+        Calculator $calculator,
+        Renderer $renderer,
+        Interval $dayInterval,
+        DateTimeZone $reportTimezone
+    ): void {
+        $hourIntervalIterator = $builder->buildHourIterator($dayInterval);
+
+        foreach ($hourIntervalIterator as $hourInterval) {
+            $processIterator = $processes->timeIntervalFilter($processes->getProcessIterator(), $hourInterval);
+            $hourMetrics = $calculator->calculate($processIterator);
+            $renderer->addTableRow($hourMetrics, $hourInterval, $reportTimezone);
+        }
+    }
+
+    /**
+     * @throws Exception
+     */
     private function createTotal(Processes $processes, DateTimeZone $reportTimezone): void
     {
         $totalInterval = $processes->getTimeInterval();
