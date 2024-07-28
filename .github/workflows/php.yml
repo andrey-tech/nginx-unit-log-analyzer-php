@@ -42,5 +42,11 @@ jobs:
     - name: Run Psalm
       run: composer psalm
  
+    - name: Run PHP Mess Detector
+      run: composer phpmd
+
+    - name: Run Pdepend and Pdepend Summary Formatter
+      run: composer pdepend
+
     - name: Run PHP Unit test suite
       run: composer test

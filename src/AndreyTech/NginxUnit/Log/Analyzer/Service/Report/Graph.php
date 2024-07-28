@@ -11,19 +11,22 @@ declare(strict_types=1);
 
 namespace AndreyTech\NginxUnit\Log\Analyzer\Service\Report;
 
+use AndreyTech\NginxUnit\Log\Analyzer\Exception as AnalyzerException;
 use AndreyTech\NginxUnit\Log\Analyzer\Service\Builder;
+use AndreyTech\NginxUnit\Log\Analyzer\Service\Interval;
 use AndreyTech\NginxUnit\Log\Analyzer\Service\Parser\Processes;
 use AndreyTech\NginxUnit\Log\Analyzer\Service\Report;
 use AndreyTech\NginxUnit\Log\Analyzer\Service\Report\Graph\Calculator;
+use AndreyTech\NginxUnit\Log\Analyzer\Service\Report\Graph\Exporter;
 use AndreyTech\NginxUnit\Log\Analyzer\Service\Report\Graph\Exporter\Duration\Average as AverageDurationExporter;
+use AndreyTech\NginxUnit\Log\Analyzer\Service\Report\Graph\Exporter\Duration\Maximum as MaximalDurationExporter;
 use AndreyTech\NginxUnit\Log\Analyzer\Service\Report\Graph\Exporter\Duration\Median as MedianDurationExporter;
 use AndreyTech\NginxUnit\Log\Analyzer\Service\Report\Graph\Exporter\Duration\Minimum as MinimalDurationExporter;
-use AndreyTech\NginxUnit\Log\Analyzer\Service\Report\Graph\Exporter\Duration\Maximum as MaximalDurationExporter;
-use AndreyTech\NginxUnit\Log\Analyzer\Service\Report\Graph\Exporter;
 use AndreyTech\NginxUnit\Log\Analyzer\Service\Report\Graph\Exporter\Quantity as QuantityExporter;
 use AndreyTech\NginxUnit\Log\Analyzer\Service\Report\Graph\Plotter;
-use AndreyTech\NginxUnit\Log\Analyzer\Exception as AnalyzerException;
+use DateTimeZone;
 use Exception;
+use Symfony\Component\Console\Helper\ProgressBar;
 
 final class Graph extends Report
 {
@@ -44,12 +47,46 @@ final class Graph extends Report
         $reportTimezone = $this->argv->handleOptionReportTimezone();
         $builder = new Builder($reportTimezone);
         $totalInterval = $processes->getTimeInterval();
-        $hourIntervalIterator = $builder->buildHourIterator($totalInterval);
 
         $calculator = new Calculator();
 
         $maxProgressBar = count($applicationList) * $totalInterval->getHours();
         $progressBar = $this->console->makeProgressBar($maxProgressBar);
+
+        $this->createHours(
+            $processes,
+            $builder,
+            $calculator,
+            $totalInterval,
+            $progressBar,
+            $reportTimezone,
+            $applicationList,
+            $exporterList
+        );
+
+        $progressBar->finish();
+        $this->console->emptyLine();
+
+        $plotter->plot();
+    }
+
+    /**
+     * @param list<string> $applicationList
+     * @param list<Exporter> $exporterList
+     *
+     * @throws Exception
+     */
+    private function createHours(
+        Processes $processes,
+        Builder $builder,
+        Calculator $calculator,
+        Interval $totalInterval,
+        ProgressBar $progressBar,
+        DateTimeZone $reportTimezone,
+        array $applicationList,
+        array $exporterList
+    ): void {
+        $hourIntervalIterator = $builder->buildHourIterator($totalInterval);
 
         foreach ($hourIntervalIterator as $hourInterval) {
             $metricList = [];
@@ -68,11 +105,6 @@ final class Graph extends Report
                 $exporter->export($metricList, $hourInterval, $reportTimezone);
             }
         }
-
-        $progressBar->finish();
-        $this->console->emptyLine();
-
-        $plotter->plot();
     }
 
     /**

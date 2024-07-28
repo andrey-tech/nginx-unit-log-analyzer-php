@@ -25,7 +25,7 @@ final class Argv
 {
     private const DEFAULT_REPORT_TYPE = 'graph';
     private const DEFAULT_GRAPH_FILE_NAME = 'nginx-unit-log-analyzer.png';
-    private const DEFAULT_GRAPH_TYPES = [ 'quantity', 'median' ];
+    private const DEFAULT_GRAPH_TYPES = [ 'quantity', 'average' ];
 
     private ArgvInput $argvInput;
 
