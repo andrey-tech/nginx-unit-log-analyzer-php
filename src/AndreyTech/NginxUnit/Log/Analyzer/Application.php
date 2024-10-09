@@ -40,9 +40,21 @@ final class Application
             $this->argv->buildArgvInput();
 
             $processes = $this->getProcesses();
-            $this->createReport($processes);
 
+            if ($processes->isEmpty()) {
+                $this->console->warning(
+                    sprintf('There are no processes found in the log file "%s"', $this->argv->handleArgumentLogFile())
+                );
+
+                $exitCode = Command::INVALID;
+                $this->printStats($exitCode);
+
+                return $exitCode;
+            }
+
+            $this->createReport($processes);
             $exitCode = Command::SUCCESS;
+
         } catch (Throwable $exception) {
             $this->console->error(
                 sprintf('ERROR: %s (%s:%u)', $exception->getMessage(), $exception->getFile(), $exception->getLine())
@@ -51,12 +63,7 @@ final class Application
             $exitCode = Command::FAILURE;
         }
 
-        $this->stats->finish();
-        $this->stats->setExitCode($exitCode);
-
-        $this->console->emptyLine();
-        $this->console->message('Finished nginx-unit-log-analyzer');
-        $this->console->message((string) $this->stats);
+        $this->printStats($exitCode);
 
         return $exitCode;
     }
@@ -85,5 +92,15 @@ final class Application
 
         $report = $factory->make($reportType);
         $report->create($processes);
+    }
+
+    private function printStats(int $exitCode): void
+    {
+        $this->stats->finish();
+        $this->stats->setExitCode($exitCode);
+
+        $this->console->emptyLine();
+        $this->console->message('Finished nginx-unit-log-analyzer');
+        $this->console->message((string) $this->stats);
     }
 }
