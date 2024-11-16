@@ -136,9 +136,9 @@ final class Graph extends Report
                 return new MedianDurationExporter();
             case 'average':
                 return new AverageDurationExporter();
-            case 'minimal':
+            case 'minimum':
                 return new MinimalDurationExporter();
-            case 'maximal':
+            case 'maximum':
                 return new MaximalDurationExporter();
         }
 

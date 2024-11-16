@@ -24,8 +24,8 @@ use Symfony\Component\Console\Input\InputOption;
 final class Argv
 {
     private const DEFAULT_REPORT_TYPE = 'graph';
-    private const DEFAULT_GRAPH_FILE_NAME = 'nginx-unit-log-analyzer.png';
-    private const DEFAULT_GRAPH_TYPES = [ 'quantity', 'average' ];
+    private const DEFAULT_REPORT_FILE_EXTENSION = 'png';
+    private const DEFAULT_GRAPH_TYPES = [ 'quantity', 'maximum', 'median' ];
 
     private ArgvInput $argvInput;
 
@@ -127,8 +127,7 @@ final class Argv
                 'graph-file-name',
                 null,
                 InputOption::VALUE_REQUIRED,
-                'Output file of graph',
-                self::DEFAULT_GRAPH_FILE_NAME
+                'Output file of graph'
             )
         );
 
@@ -265,7 +264,7 @@ final class Argv
         $graphFileName = (string) $this->argvInput->getOption('graph-file-name');
 
         if (empty($graphFileName)) {
-            throw new AnalyzerException('Empty value of "--graph-file-name" option.');
+            return sprintf('%s.%s', $this->handleArgumentLogFile(), self::DEFAULT_REPORT_FILE_EXTENSION);
         }
 
         return $graphFileName;
