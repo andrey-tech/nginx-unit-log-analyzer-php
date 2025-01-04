@@ -3,7 +3,8 @@
     "description": "Tool to analyze NGINX Unit log file in console",
     "keywords": [
         "nginx unit",
-        "nginx-unit",
+        "nginx",
+        "unit",
         "log",
         "console",
         "graph",
@@ -21,7 +22,7 @@
         }
     ],
     "require": {
-        "php": "^8.1 || ^8.2 || ^8.3",
+        "php": "^8.1",
         "symfony/console": "^5.4 || ^6.4 || ^7.1",
         "symfony/yaml": "^5.4 || ^6.4 || ^7.1"
     },
